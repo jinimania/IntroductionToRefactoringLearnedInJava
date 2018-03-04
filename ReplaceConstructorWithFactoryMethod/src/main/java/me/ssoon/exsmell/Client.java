@@ -5,11 +5,7 @@ public class Client {
   private final Printer printer;
 
   public Client(final boolean graphical) {
-    if (graphical) {
-      printer = new GraphPrinter();
-    } else {
-      printer = new DigitPrinter();
-    }
+    printer = Printer.create(graphical);
   }
 
   public void execute() {
