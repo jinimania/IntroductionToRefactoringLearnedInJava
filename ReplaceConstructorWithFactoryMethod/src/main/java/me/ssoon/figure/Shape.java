@@ -12,13 +12,18 @@ public class Shape {
   private final int endX;
   private final int endY;
 
-  public Shape(final int typeCode, final int startX, final int startY, final int endX,
+  private Shape(final int typeCode, final int startX, final int startY, final int endX,
       final int endY) {
     this.typeCode = typeCode;
     this.startX = startX;
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
+  }
+
+  public static Shape create(final int typeCode, final int startX, final int startY, final int endX,
+      final int endY) {
+    return new Shape(typeCode, startX, startY, endX, endY);
   }
 
   public int getTypeCode() {
