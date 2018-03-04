@@ -4,8 +4,8 @@ public class Client {
 
   private final Printer printer;
 
-  public Client(final boolean graphical) {
-    printer = Printer.create(graphical);
+  public Client(final Printer printer) {
+    this.printer = printer;
   }
 
   public void execute() {
