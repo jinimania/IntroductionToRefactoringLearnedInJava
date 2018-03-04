@@ -6,10 +6,13 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SimpleDatabase {
 
   private Map<String, String> map = new HashMap<>();
+  private static Pattern pattern = Pattern.compile("([^=]+)=(.*)");
   public SimpleDatabase(final Reader r) throws IOException {
     final BufferedReader reader = new BufferedReader(r);
     String line;
@@ -18,10 +21,10 @@ public class SimpleDatabase {
       if (line == null) {
         break;
       }
-      final int equalIndex = line.indexOf('=');
-      if (equalIndex > 0) {
-        final String key = line.substring(0, equalIndex);
-        final String value = line.substring(equalIndex+ 1, line.length());
+      final Matcher matcher = pattern.matcher(line);
+      if (matcher.matches()) {
+        final String key = matcher.group(1);
+        final String value = matcher.group(2);
         map.put(key, value);
       }
     }
