@@ -1,46 +1,32 @@
 package me.ssoon.figure;
 
-public class Shape {
+public abstract class Shape {
 
-  public static final int TYPECODE_LINE = 0;
-  public static final int TYPECODE_RECTANGLE = 1;
-  public static final int TYPECODE_OVAL = 2;
-
-  private final int typeCode;
   private final int startX;
   private final int startY;
   private final int endX;
   private final int endY;
 
-  private Shape(final int typeCode, final int startX, final int startY, final int endX,
-      final int endY) {
-    this.typeCode = typeCode;
+  protected Shape(final int startX, final int startY, final int endX, final int endY) {
     this.startX = startX;
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
   }
 
-  public static Shape create(final int typeCode, final int startX, final int startY, final int endX,
+  public static Shape createLine(final int startX, final int startY, final int endX,
       final int endY) {
-    return new Shape(typeCode, startX, startY, endX, endY);
+    return new ShapeLine(startX, startY, endX, endY);
   }
 
-  public int getTypeCode() {
-    return typeCode;
+  public static Shape createRectangle(final int startX, final int startY, final int endX,
+      final int endY) {
+    return new ShapeRectangle(startX, startY, endX, endY);
   }
 
-  public String getName() {
-    switch (typeCode) {
-      case TYPECODE_LINE:
-        return "LINE";
-      case TYPECODE_RECTANGLE:
-        return "RECTANGLE";
-      case TYPECODE_OVAL:
-        return "OVAL";
-      default:
-        return null;
-    }
+  public static Shape createOval(final int startX, final int startY, final int endX,
+      final int endY) {
+    return new ShapeOval(startX, startY, endX, endY);
   }
 
   @Override
@@ -51,30 +37,7 @@ public class Shape {
         "(" + endX + ", " + endY + ") ]";
   }
 
-  public void draw() {
-    switch (typeCode) {
-      case TYPECODE_LINE:
-        drawLine();
-        break;
-      case TYPECODE_RECTANGLE:
-        drawRectangle();
-        break;
-      case TYPECODE_OVAL:
-        drawOval();
-        break;
-      default:
-    }
-  }
+  public abstract String getName();
 
-  private void drawLine() {
-    System.out.println("drawLine: " + this.toString());
-  }
-
-  private void drawRectangle() {
-    System.out.println("drawRectangle: " + this.toString());
-  }
-
-  private void drawOval() {
-    System.out.println("drawOval: " + this.toString());
-  }
+  public abstract void draw();
 }
